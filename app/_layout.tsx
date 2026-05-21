@@ -4,13 +4,13 @@ import "./global.css";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    nunito: require("../assets/fonts/Nunito-Regular.ttf"),
-    "nunito-bold": require("../assets/fonts/Nunito-Bold.ttf"),
-    "nunito-semibold": require("../assets/fonts/Nunito-SemiBold.ttf"),
-    "nunito-light": require("../assets/fonts/Nunito-Light.ttf"),
-    "nunito-extrabold": require("../assets/fonts/Nunito-ExtraBold.ttf"),
-    "nunito-medium": require("../assets/fonts/Nunito-Medium.ttf"),
-    "nunito-italic": require("../assets/fonts/Nunito-Italic.ttf"),
+    "Nunito-Regular": require("../assets/fonts/Nunito-Regular.ttf"),
+    "Nunito-Bold": require("../assets/fonts/Nunito-Bold.ttf"),
+    "Nunito-SemiBold": require("../assets/fonts/Nunito-SemiBold.ttf"),
+    "Nunito-Light": require("../assets/fonts/Nunito-Light.ttf"),
+    "Nunito-ExtraBold": require("../assets/fonts/Nunito-ExtraBold.ttf"),
+    "Nunito-Medium": require("../assets/fonts/Nunito-Medium.ttf"),
+    "Nunito-Italic": require("../assets/fonts/Nunito-Italic.ttf"),
   });
 
   if (!fontsLoaded) {
