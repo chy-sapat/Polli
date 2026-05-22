@@ -14,6 +14,9 @@ module.exports = {
         "nunito-extrabold": ["Nunito-ExtraBold", "sans-serif"],
         "nunito-medium": ["Nunito-Medium", "sans-serif"],
       },
+      colors: {
+        primary: "#5E5CE6",
+      },
     },
   },
   plugins: [],
