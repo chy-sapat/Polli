@@ -17,8 +17,8 @@ const Learning = () => {
         className="flex-1 px-4"
         contentContainerStyle={{ paddingBottom: 40 }}
       >
-        <View className="flex-1 px-2 pt-4">
-          <Text className="text-4xl text-center font-nunito-bold text-slate-400 dark:text-slate-300">
+        <View className="flex-1 px-2">
+          <Text className="text-4xl text-center font-nunito-bold text-slate-600 dark:text-slate-300">
             Level 1
           </Text>
         </View>
