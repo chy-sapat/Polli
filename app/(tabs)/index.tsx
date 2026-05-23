@@ -1,6 +1,6 @@
 import Spacer from "@/components/UI/spacer";
 import { icons } from "@/lib/constants/icons";
-import { Bell, ChevronRight, Flame, Play } from "lucide-react-native";
+import { Bell, ChevronRight, MoveUp, Play } from "lucide-react-native";
 import React from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,7 +29,36 @@ const Index = () => {
         contentContainerStyle={{ paddingBottom: 40 }}
       >
         <Spacer />
-        <View className="p-10 bg-primary rounded-[60px]">
+        <View className="gap-4 px-2 py-4 bg-slate-100 dark:bg-slate-800 rounded-xl">
+          <Text className="text-lg font-nunito-bold text-slate-600 dark:text-slate-300">
+            Daily Goals
+          </Text>
+          <View className="flex-row items-center justify-evenly">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <View key={index} className="flex items-center gap-2 mb-2">
+                <View
+                  className="p-0.5 bg-slate-100 rounded-full items-center justify-center"
+                  style={{ opacity: streakContinuous ? 1 : 0.8 }}
+                >
+                  <Image
+                    source={icons.fire}
+                    className="w-10 h-10"
+                    tintColor={index + 1 > streak ? "#475569" : ""}
+                  />
+                </View>
+                <Text
+                  className={`text-base font-nunito-bold ${
+                    index < streak ? "text-red-500" : "text-slate-500"
+                  }`}
+                >
+                  {days[index]}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+        <Spacer />
+        <View className="p-8 bg-primary rounded-xl">
           <Text className="text-white text-lg font-nunito-bold px-2 py-1 bg-slate-50/20 rounded-xl self-start">
             Getting Started
           </Text>
@@ -64,32 +93,37 @@ const Index = () => {
           </Pressable>
         </View>
         <Spacer />
-        <View className="gap-4 px-2 py-4 bg-slate-100 dark:bg-slate-800 rounded-lg">
-          <Text className="text-lg font-nunito-bold text-slate-600 dark:text-slate-300">
-            Daily Goals
-          </Text>
-          <View className="flex-row items-center justify-between">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <View key={index} className="flex items-center gap-2 mb-2">
-                <View className="p-0.5 bg-slate-100 rounded-full items-center justify-center">
-                  <Flame
-                    size={32}
-                    color={index < streak ? "#f87171" : "#94a3b8"}
-                    className="mb-1"
-                  />
-                </View>
-                <Text
-                  className={`text-sm font-nunito-bold ${
-                    index < streak ? "text-red-500" : "text-slate-500"
-                  }`}
-                >
-                  {days[index]}
+        <View className="flex-row gap-2">
+          <View className="flex-1 gap-4 px-2 py-4 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <Text className="text-2xl font-nunito-bold text-slate-600 dark:text-slate-300">
+              Mastery Score
+            </Text>
+            <View className="flex-row items-end mt-2">
+              <Text className="text-3xl font-nunito-extrabold text-slate-600 dark:text-slate-300">
+                842
+              </Text>
+              <View className="flex-row items-center ml-1">
+                <MoveUp size={12} color="#22c55e" />
+                <Text className="text-green-500 font-nunito-bold text-lg">
+                  +5%
                 </Text>
               </View>
-            ))}
+            </View>
+          </View>
+          <View className="flex-1 gap-4 px-2 py-4 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <Text className="text-2xl font-nunito-bold text-slate-600 dark:text-slate-300">
+              Vocabulary
+            </Text>
+            <View className="flex-row items-end gap-2 mt-2">
+              <Text className="text-4xl font-nunito-extrabold text-slate-600 dark:text-slate-300">
+                1.2k
+              </Text>
+              <Text className="text-slate-600 dark:text-slate-300 font-nunito-medium text-lg">
+                words
+              </Text>
+            </View>
           </View>
         </View>
-        <Spacer />
       </ScrollView>
     </SafeAreaView>
   );

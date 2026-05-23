@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const Explore = () => {
+const Learning = () => {
   return (
     <View>
-      <Text>Explore</Text>
+      <Text>Learning</Text>
     </View>
   );
 };
 
-export default Explore;
+export default Learning;
