@@ -4,9 +4,43 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useUserData } from "@/lib/stores/newUser-store";
+import { useState } from "react";
+import Toast from "react-native-toast-message";
+import { validateEmail } from "@/utils/emailValidator";
 
 const Signup = () => {
   const router = useRouter();
+  const { email, setUser } = useUserData();
+  const [inputEmail,setInputEmail]=useState("");
+
+
+  const signUp=async()=>
+  {
+
+    if (!inputEmail) {
+      Toast.show({
+        type: "error",
+        text1: "Email is required",
+        text2: "Please enter your email address.",
+      });
+      return;
+    }
+
+    if(!validateEmail(inputEmail)) {
+      Toast.show({
+        type: "error",
+        text1: "Invalid email",
+        text2: "Please enter a valid email address.",
+      });
+      return;
+    }
+
+    setUser({ email: inputEmail });
+    router.push("/signup/passwords")
+
+    }
+
   return (
     <SafeAreaView className="h-full justify-center bg-white dark:bg-slate-950 px-6">
       <View className="gap-8">
@@ -29,9 +63,10 @@ const Signup = () => {
               placeholder="you@example.com"
               placeholderTextColor="#94a3b8"
               className="rounded-xl border border-slate-700 bg-white dark:bg-slate-900 px-4 py-4 font-nunito text-base text-white"
+              onChangeText={(text) => setInputEmail(text)}
             />
             <Button
-              onPress={() => router.push("/signup/passwords")}
+                onPress={signUp}
               className="rounded-xl bg-emerald-500 px-4 py-4 flex-row items-center justify-center"
             >
               <Text className="font-nunito-bold text-base text-emerald-950">

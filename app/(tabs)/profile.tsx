@@ -76,6 +76,7 @@ export default  function Profile() {
           headers: {
             Authorization: `${token}`,
           },
+          validateStatus: () => true,
         });
 
         if (profileResponse.data?.user) {
@@ -87,6 +88,7 @@ export default  function Profile() {
           headers: {
             Authorization: `${token}`,
           },
+          validateStatus: () => true,
         });
 
         if (progressResponse.data?.progress) {
@@ -125,6 +127,7 @@ export default  function Profile() {
         headers: {
           Authorization: `${token}`,
         },
+        validateStatus: () => true,
       });
 
       if (response.data?.success) {
@@ -208,7 +211,7 @@ export default  function Profile() {
               </Text>
             </View>
             <View className="flex-1 bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 items-center justify-center">
-              <Text className="font-nunito-bold text-4xl text-emerald-600 mb-1">
+              <Text className="font-nunito-bold text-4xl text-primary mb-1">
                 {progressData.accuracy}%
               </Text>
               <Text className="font-nunito-semibold text-xs tracking-wider text-slate-500 uppercase text-center">

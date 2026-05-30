@@ -1,12 +1,51 @@
 import Button from "@/components/UI/button";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useUserData } from "@/lib/stores/newUser-store";
+import Toast from "react-native-toast-message";
 
 const Password = () => {
+
+  const { setUser } = useUserData();
+  const [inputPassword, setInputPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const router = useRouter();
+
   const handleProceed = () => {
+
+
+    if (!inputPassword || !confirmPassword) {
+      Toast.show({
+        type: "error",
+        text1: "Password is required",
+        text2: "Please enter and confirm your password.",
+      });
+      return;
+    }
+
+    if (inputPassword.length < 6) {
+      Toast.show({
+        type: "error",
+        text1: "Weak Password",
+        text2: "Your password should be at least 6 characters long.",
+      });
+      return;
+    }
+    
+
+    if (inputPassword !== confirmPassword) {
+      Toast.show({
+        type: "error",
+        text1: "Passwords do not match",
+        text2: "Please make sure both passwords are the same.",
+      })
+      return;
+    }
+
+    setUser({ password: inputPassword });
     router.push("/signup/createprofile");
   };
   return (
@@ -31,6 +70,7 @@ const Password = () => {
               placeholder="Enter your password"
               placeholderTextColor="#94a3b8"
               className="rounded-xl border border-slate-700 bg-white dark:bg-slate-900 px-4 py-4 font-nunito text-base text-white"
+              onChangeText={(text) => setInputPassword(text)}
             />
           </View>
           <View className="gap-4">
@@ -42,6 +82,7 @@ const Password = () => {
               placeholder="Confirm your password"
               placeholderTextColor="#94a3b8"
               className="rounded-xl border border-slate-700 bg-white dark:bg-slate-900 px-4 py-4 font-nunito text-base text-white"
+              onChangeText={(text) => setConfirmPassword(text)}
             />
           </View>
           <Button
