@@ -1,3 +1,4 @@
+import WritingSentence from "@/components/features/writingSentence";
 import { router } from "expo-router";
 import { ChevronLeft, Volume2 } from "lucide-react-native";
 import React, { useEffect } from "react";
@@ -9,6 +10,8 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import InteractiveSentence from "../../components/features/interactiveSentence";
+import InteractiveVocabulary from "../../components/features/interactiveVocabulary";
 import courses from "../../data/courses/english/beginner.json";
 import { useLessonStore } from "../../lib/stores/lesson-store";
 
@@ -20,13 +23,6 @@ const VocabularyPractice = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    // if (pageListRef.current) {
-    //   pageListRef.current.scrollToOffset({
-    //     offset: (newPage - 1) * width,
-    //     animated: true,
-    //   });
-    // }
-    console.log("Page changed to:", newPage);
   };
 
   useEffect(() => {
@@ -101,28 +97,45 @@ const VocabularyPractice = () => {
             )}
             {item.type === "vocabulary" && !item.interactive && (
               <View className="flex-1 items-center gap-4 px-4 py-2">
-                <View
-                  className="w-full bg-slate-50 p-4 rounded-lg"
-                  style={{ elevation: 1 }}
-                >
-                  <View className="flex-row items-center gap-4 mb-4">
-                    <Pressable
-                      className="bg-primary p-2 rounded-lg active:opacity-60"
-                      onPress={() => {}}
+                {item.content.vocab.map(
+                  (
+                    vocab: {
+                      word: string;
+                      meaning: string;
+                      examples: string[];
+                    },
+                    index: number,
+                  ) => (
+                    <View
+                      className="w-full bg-slate-50 p-4 rounded-lg"
+                      style={{ elevation: 1 }}
+                      key={index}
                     >
-                      <Volume2 size={24} color="#f8fafc" strokeWidth={2} />
-                    </Pressable>
-                    <Text className="text-3xl font-nunito-bold text-slate-800 dark:text-slate-200 lowercase first-letter:capitalize">
-                      {item.content.word}
-                    </Text>
-                  </View>
-                  <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg mb-4">
-                    {item.content.meaning}
-                  </Text>
-                  <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg italic">
-                    {item.content.example}
-                  </Text>
-                </View>
+                      <View className="flex-row items-center gap-4 mb-4">
+                        <Pressable
+                          className="bg-primary p-2 rounded-lg active:opacity-60"
+                          onPress={() => {}}
+                        >
+                          <Volume2 size={24} color="#f8fafc" strokeWidth={2} />
+                        </Pressable>
+                        <Text className="text-3xl font-nunito-bold text-slate-800 dark:text-slate-200 lowercase first-letter:capitalize">
+                          {vocab.word}
+                        </Text>
+                      </View>
+                      <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg mb-4">
+                        {vocab.meaning}
+                      </Text>
+                      {vocab.examples.map((example: string, index: number) => (
+                        <Text
+                          className="text-slate-600 dark:text-slate-400 font-nunito text-lg italic"
+                          key={index}
+                        >
+                          {example}
+                        </Text>
+                      ))}
+                    </View>
+                  ),
+                )}
                 <Pressable
                   className="bg-primary w-full py-4 px-8 rounded-full mt-auto mb-4 active:opacity-60"
                   onPress={() => handlePageChange(currentPage + 1)}
@@ -134,68 +147,12 @@ const VocabularyPractice = () => {
               </View>
             )}
             {item.type === "interactive_vocab" && item.interactive && (
-              <View className="flex-1 items-center gap-4 px-4 py-2">
-                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg">
-                  {item.content.instruction}
-                </Text>
-                {item.activity && (
-                  <View className="w-full">
-                    {item.activity.activityType === "matching" && (
-                      <View className="w-full py-8">
-                        <View>
-                          {item.activity.questions.map(
-                            (
-                              question: { word: string; answer: string },
-                              index: number,
-                            ) => (
-                              <View
-                                key={index}
-                                className="mb-2 flex-row items-center gap-2"
-                              >
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito-bold text-xl mb-2">
-                                  {question.word.charAt(0).toUpperCase() +
-                                    question.word.slice(1)}
-                                </Text>
-                                <Text>:</Text>
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-xl mb-2">
-                                  {question.answer}
-                                </Text>
-                              </View>
-                            ),
-                          )}
-                        </View>
-                        <View className="flex-row flex-wrap items-center gap-4 mt-8">
-                          {item.activity.questions.map(
-                            (
-                              question: { word: string; answer: string },
-                              index: number,
-                            ) => (
-                              <Pressable
-                                key={index}
-                                className="bg-slate-50 p-4 rounded-lg mt-4 active:opacity-60"
-                                style={{ elevation: 1 }}
-                              >
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg mb-2">
-                                  {question.answer}
-                                </Text>
-                              </Pressable>
-                            ),
-                          )}
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                )}
-                <Pressable
-                  className="bg-primary w-full py-4 px-8 rounded-full mt-auto mb-4 active:opacity-60"
-                  onPress={() => handlePageChange(currentPage + 1)}
-                >
-                  <Text className="text-white text-center font-nunito-bold text-lg">
-                    Check
-                  </Text>
-                </Pressable>
-              </View>
+              <InteractiveVocabulary
+                item={item}
+                handlePageChange={handlePageChange}
+              />
             )}
+
             {item.type === "sentence" && (
               <View className="flex-1 items-center gap-4 px-4 py-2">
                 <Text className="text-slate-600 dark:text-slate-400 font-nunito text-xl my-4">
@@ -228,93 +185,16 @@ const VocabularyPractice = () => {
               </View>
             )}
             {item.type === "interactive_sentence" && item.interactive && (
-              <View className="flex-1 items-center gap-4 px-4 py-2">
-                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg">
-                  {item.content.instruction}
-                </Text>
-                {item.activity && (
-                  <View className="w-full">
-                    {item.activity.activityType === "fill_blank" && (
-                      <View className="w-full py-8">
-                        <View>
-                          <Text className="text-slate-600 dark:text-slate-400 font-nunito text-xl mb-2">
-                            {item.activity.question}
-                          </Text>
-                        </View>
-                        <View>
-                          {item.activity.options.map(
-                            (option: string, index: number) => (
-                              <Pressable
-                                key={index}
-                                className="bg-slate-50 p-4 rounded-lg mt-4 active:opacity-60"
-                                style={{ elevation: 1 }}
-                              >
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg mb-2">
-                                  {option}
-                                </Text>
-                              </Pressable>
-                            ),
-                          )}
-                        </View>
-                      </View>
-                    )}
-                    {item.activity.activityType === "word_order" && (
-                      <View className="w-full py-8">
-                        <View className="flex-row gap-2">
-                          {item.activity.words.map(
-                            (word: string, index: number) => (
-                              <View
-                                key={index}
-                                className="flex-1 border-b border-slate-300 dark:border-slate-700"
-                              >
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-xl mb-2">
-                                  {word}
-                                </Text>
-                              </View>
-                            ),
-                          )}
-                        </View>
-                        <View className="flex-row flex-wrap items-center gap-2 mt-8">
-                          {item.activity.words.map(
-                            (word: string, index: number) => (
-                              <Pressable
-                                key={index}
-                                className="min-w-[60px] bg-slate-50 p-4 rounded-lg active:opacity-60"
-                                style={{ elevation: 1 }}
-                              >
-                                <Text className="text-slate-600 dark:text-slate-400 font-nunito text-lg mb-2">
-                                  {word}
-                                </Text>
-                              </Pressable>
-                            ),
-                          )}
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                )}
-                <Pressable
-                  className="bg-primary w-full py-4 px-8 rounded-full mt-auto mb-4 active:opacity-60"
-                  onPress={() => handlePageChange(currentPage + 1)}
-                >
-                  <Text className="text-white text-center font-nunito-bold text-lg">
-                    Check
-                  </Text>
-                </Pressable>
-              </View>
+              <InteractiveSentence
+                item={item}
+                handlePageChange={handlePageChange}
+              />
             )}
-            {(item.type === "conversation" ||
-              item.type === "interactive_conversation") && (
-              <View>
-                <Pressable
-                  className="bg-primary w-full py-4 px-8 rounded-full mt-auto mb-4 active:opacity-60"
-                  onPress={() => handlePageChange(currentPage + 1)}
-                >
-                  <Text className="text-white text-center font-nunito-bold text-lg">
-                    Check
-                  </Text>
-                </Pressable>
-              </View>
+            {item.type === "writing_practice" && (
+              <WritingSentence
+                item={item}
+                handlePageChange={handlePageChange}
+              />
             )}
             {item.type === "summary" && (
               <View className="flex-1 items-center gap-4 px-4 py-2">
@@ -325,7 +205,7 @@ const VocabularyPractice = () => {
                   Key Vocabulary
                 </Text>
                 {item.content.keyVocabulary.map((vocabulary: string) => (
-                  <Text className="text-xl font-nunito-bold text-slate-800 dark:text-slate-200 mb-2">
+                  <Text className="text-xl text-center font-nunito-bold text-slate-800 dark:text-slate-200 mb-2">
                     {vocabulary}
                   </Text>
                 ))}
@@ -333,7 +213,7 @@ const VocabularyPractice = () => {
                   Key Sentences
                 </Text>
                 {item.content.keySentences.map((sentence: string) => (
-                  <Text className="text-xl font-nunito-bold text-slate-800 dark:text-slate-200 mb-2">
+                  <Text className="text-xl text-center font-nunito-bold text-slate-800 dark:text-slate-200 mb-2">
                     {sentence}
                   </Text>
                 ))}
@@ -349,7 +229,7 @@ const VocabularyPractice = () => {
             )}
           </View>
         )}
-        keyExtractor={(item) => item.page.toString()}
+        keyExtractor={(item) => item.id}
         scrollEnabled={false}
         showsHorizontalScrollIndicator={false}
         pagingEnabled

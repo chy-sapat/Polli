@@ -1,6 +1,6 @@
 import Spacer from "@/components/UI/spacer";
 import { icons } from "@/lib/constants/icons";
-import { BookOpen, Clock4, Target } from "lucide-react-native";
+import { BookOpen, Clock4, Target, Trophy } from "lucide-react-native";
 import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
@@ -78,7 +78,7 @@ const Progress = () => {
           </Text>
           <Spacer size={8} />
           <View
-            className="flex-row items-center justify-evenly bg-white rounded-xl p-4"
+            className="bg-white rounded-xl p-4"
             style={{
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.25,
@@ -86,27 +86,55 @@ const Progress = () => {
               elevation: 1,
             }}
           >
-            {Array.from({ length: 7 }).map((_, index) => (
-              <View key={index} className="flex items-center gap-2">
-                <View
-                  className="p-1 bg-slate-200 rounded-full items-center justify-center"
-                  style={{ opacity: streakContinuous ? 1 : 0.8 }}
-                >
-                  <Image
-                    source={icons.fire}
-                    className="w-10 h-10"
-                    tintColor={index + 1 > streak ? "#475569" : ""}
-                  />
-                </View>
-                <Text
-                  className={`text-base font-nunito-bold ${
-                    index < streak ? "text-red-500" : "text-slate-500"
-                  }`}
-                >
-                  {days[index]}
+            <View className="flex-row items-center gap-2 bg-yellow-300/40 px-2 py-1 rounded-full">
+              <View className="px-2 py-0.5 bg-white rounded-full">
+                <Image source={icons.fire} className="w-8 h-8" />
+              </View>
+              <Text className="text-lg font-nunito-bold text-orange-500 dark:text-slate-200">
+                Daily Streak
+              </Text>
+              <View className="px-4 py-0.5 bg-white rounded-full ml-auto">
+                <Text className="text-lg font-nunito-bold text-orange-500 dark:text-slate-200">
+                  3
                 </Text>
               </View>
-            ))}
+            </View>
+            <View className="flex-row items-center gap-2 bg-green-300/40 px-2 py-1 rounded-full mt-1">
+              <View className="px-2 py-0.5 bg-white rounded-full">
+                <Trophy size={24} color="#22c55e" />
+              </View>
+              <Text className="text-lg font-nunito-bold text-green-500 dark:text-slate-200">
+                Best Streak
+              </Text>
+              <View className="px-4 py-0.5 bg-white rounded-full ml-auto">
+                <Text className="text-lg font-nunito-bold text-green-500 dark:text-slate-200">
+                  3
+                </Text>
+              </View>
+            </View>
+            <View className="flex-row items-center justify-evenly mt-4">
+              {Array.from({ length: 7 }).map((_, index) => (
+                <View key={index} className="flex items-center gap-2">
+                  <View
+                    className="p-1 bg-slate-200 rounded-full items-center justify-center"
+                    style={{ opacity: streakContinuous ? 1 : 0.8 }}
+                  >
+                    <Image
+                      source={icons.fire}
+                      className="w-8 h-8"
+                      tintColor={index + 1 > streak ? "#475569" : ""}
+                    />
+                  </View>
+                  <Text
+                    className={`text-base font-nunito-bold ${
+                      index < streak ? "text-red-500" : "text-slate-500"
+                    }`}
+                  >
+                    {days[index]}
+                  </Text>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
         <Spacer size={24} />
@@ -127,7 +155,7 @@ const Progress = () => {
             {activityData.map((item, index) => (
               <View
                 key={item.id}
-                className="flex-1 items-center gap-1 py-2"
+                className="flex-1 items-center gap-2 py-2"
                 style={{
                   borderLeftWidth: index === 1 ? 1 : 0,
                   borderRightWidth: index === 1 ? 1 : 0,
@@ -135,7 +163,7 @@ const Progress = () => {
                   borderLeftColor: index === 1 ? "white" : "none",
                 }}
               >
-                <item.icon size={36} color="#f8fafc" />
+                <item.icon size={24} color="#f8fafc" />
                 <Text className="text-xl font-nunito-extrabold text-slate-50">
                   {item.title}
                 </Text>

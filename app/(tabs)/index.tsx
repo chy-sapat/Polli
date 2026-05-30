@@ -3,7 +3,7 @@ import Spacer from "@/components/UI/spacer";
 import { icons } from "@/lib/constants/icons";
 import { useLessonStore } from "@/lib/stores/lesson-store";
 import { router } from "expo-router";
-import { Bell, Check, ChevronRight, Play, X } from "lucide-react-native";
+import { Check, ChevronRight, Play, X } from "lucide-react-native";
 import React from "react";
 import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,7 +21,7 @@ const Index = () => {
   ];
   const course = courses;
   const lessons = course.lessons;
-  const currentLessonIndex = 0;
+  const currentLessonIndex = 1;
 
   const toggleShowLanguageModal = () => {
     setShowLanguageModal((prev) => !prev);
@@ -30,6 +30,7 @@ const Index = () => {
   const handleStartLearning = (lessonId: string) => {
     setCurrentLesson(lessonId);
     setCurrentCourse(course.id);
+    console.log("Navigating to lesson:", lessonId);
     router.push(`/vocab/${lessonId}`);
   };
 
@@ -69,21 +70,18 @@ const Index = () => {
       </Modal>
       <View className="flex-row items-center px-4 pb-1">
         <Pressable
-          className="flex-row items-center gap-4 border border-slate-600 px-4 py-2 rounded-full active:opacity-60"
+          className="flex-row items-center gap-4 border border-primary/60 px-4 py-1 rounded-full active:opacity-60"
           onPress={toggleShowLanguageModal}
         >
           <Image
             source={icons.flag_en}
             className="w-10 h-10 rounded-full object-cover"
           />
-          <Text className="text-slate-600 dark:text-slate-300 text-lg font-nunito-bold">
-            English
-          </Text>
           <ChevronRight size={20} color="#94a3b8" />
         </Pressable>
-        <Pressable className="ml-auto p-2 rounded-full active:opacity-60">
+        {/* <Pressable className="ml-auto p-2 rounded-full active:opacity-60">
           <Bell size={30} color="#94a3b8" />
-        </Pressable>
+        </Pressable> */}
       </View>
       <ScrollView
         className="flex-1 px-4 pt-2 rounded-t-3xl"
