@@ -1,11 +1,15 @@
 import Spacer from "@/components/UI/spacer";
+import { icons } from "@/lib/constants/icons";
 import { BookOpen, Clock4, Target } from "lucide-react-native";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Progress = () => {
+  const [streak, setStreak] = React.useState(3);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const [streakContinuous, setStreakContinuous] = React.useState(false);
   const activityData = [
     {
       id: 1,
@@ -70,11 +74,49 @@ const Progress = () => {
         <Spacer />
         <View className="">
           <Text className="text-2xl font-nunito-bold text-slate-600 dark:text-slate-300">
+            Daily Goals
+          </Text>
+          <Spacer size={8} />
+          <View
+            className="flex-row items-center justify-evenly bg-white rounded-xl p-4"
+            style={{
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 0.84,
+              elevation: 1,
+            }}
+          >
+            {Array.from({ length: 7 }).map((_, index) => (
+              <View key={index} className="flex items-center gap-2">
+                <View
+                  className="p-1 bg-slate-200 rounded-full items-center justify-center"
+                  style={{ opacity: streakContinuous ? 1 : 0.8 }}
+                >
+                  <Image
+                    source={icons.fire}
+                    className="w-10 h-10"
+                    tintColor={index + 1 > streak ? "#475569" : ""}
+                  />
+                </View>
+                <Text
+                  className={`text-base font-nunito-bold ${
+                    index < streak ? "text-red-500" : "text-slate-500"
+                  }`}
+                >
+                  {days[index]}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+        <Spacer size={24} />
+        <View className="">
+          <Text className="text-2xl font-nunito-bold text-slate-600 dark:text-slate-300">
             Activity
           </Text>
           <Spacer size={8} />
           <View
-            className="flex-row gap-2 bg-primary rounded-xl p-2"
+            className="flex-row gap-2 bg-primary rounded-xl px-2 py-4"
             style={{
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.25,
@@ -85,7 +127,7 @@ const Progress = () => {
             {activityData.map((item, index) => (
               <View
                 key={item.id}
-                className="flex-1 items-center gap-1 rounded-xl py-2"
+                className="flex-1 items-center gap-1 py-2"
                 style={{
                   borderLeftWidth: index === 1 ? 1 : 0,
                   borderRightWidth: index === 1 ? 1 : 0,
@@ -93,11 +135,11 @@ const Progress = () => {
                   borderLeftColor: index === 1 ? "white" : "none",
                 }}
               >
-                <item.icon size={32} color="#f8fafc" />
-                <Text className="text-lg font-nunito-medium text-slate-50">
+                <item.icon size={36} color="#f8fafc" />
+                <Text className="text-xl font-nunito-extrabold text-slate-50">
                   {item.title}
                 </Text>
-                <Text className="text-lg font-nunito-bold text-slate-50">
+                <Text className="text-xl font-nunito-bold text-slate-50">
                   {item.value}
                 </Text>
               </View>

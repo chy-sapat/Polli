@@ -1,10 +1,5 @@
 import { Tabs } from "expo-router";
-import {
-  CircleUser,
-  GraduationCap,
-  House,
-  TrendingUp,
-} from "lucide-react-native";
+import { CircleUser, GraduationCap, TrendingUp } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 
 const TabIcons = ({
@@ -36,21 +31,13 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
-          tabBarIcon: ({ focused }) => (
-            <TabIcons focused={focused} title="Home" Icon={House} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="learning"
-        options={{
           title: "Learn",
           tabBarIcon: ({ focused }) => (
             <TabIcons focused={focused} title="Learn" Icon={GraduationCap} />
           ),
         }}
       />
+
       <Tabs.Screen
         name="progress"
         options={{

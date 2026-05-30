@@ -1,0 +1,219 @@
+{
+  "id": "english-level-A1",
+  "title": "Level A1: Solo Travelling",
+  "description": "",
+  "lessons": [
+    {
+      "id": "english-level-A1-lesson-1",
+      "title": "Asking for Directions",
+      "description": "Learn how to ask for directions and navigate in English. This lesson covers common phrases for requesting help, understanding street names, and following simple instructions.",
+      "contents": [
+        {
+          "page": 1,
+          "type": "intro",
+          "interactive": false,
+          "content": {
+            "title": "Asking for Directions",
+            "description": "In this lesson, you will learn useful words and sentences for asking and understanding directions."
+          }
+        },
+
+        {
+          "page": 2,
+          "type": "vocabulary",
+          "interactive": false,
+          "content": {
+            "word": "intersection",
+            "meaning": "A place where two or more roads meet.",
+            "example": "Turn left at the intersection."
+          }
+        },
+
+        {
+          "page": 3,
+          "type": "vocabulary",
+          "interactive": false,
+          "content": {
+            "word": "straight ahead",
+            "meaning": "Continue forward without turning.",
+            "example": "Walk straight ahead for two blocks."
+          }
+        },
+
+        {
+          "page": 4,
+          "type": "interactive_vocab",
+          "interactive": true,
+          "content": {
+            "instruction": "Match the word with its meaning."
+          },
+          "activity": {
+            "activityType": "matching",
+            "questions": [
+              {
+                "word": "intersection",
+                "answer": "A place where roads meet"
+              },
+              {
+                "word": "straight ahead",
+                "answer": "Continue forward"
+              }
+            ]
+          }
+        },
+
+        {
+          "page": 5,
+          "type": "sentence",
+          "interactive": false,
+          "content": {
+            "pattern": "How do I get to ___?",
+            "explanation": "Use this sentence when asking for directions.",
+            "examples": [
+              "How do I get to the train station?",
+              "How do I get to the museum?"
+            ]
+          }
+        },
+
+        {
+          "page": 6,
+          "type": "interactive_sentence",
+          "interactive": true,
+          "content": {
+            "instruction": "Complete the sentence."
+          },
+          "activity": {
+            "activityType": "fill_blank",
+            "question": "How do I get to the _____ ?",
+            "options": ["library", "walk", "turn", "street"],
+            "correctAnswer": "library"
+          }
+        },
+
+        {
+          "page": 7,
+          "type": "vocabulary",
+          "interactive": false,
+          "content": {
+            "word": "within walking distance",
+            "meaning": "Close enough to walk to.",
+            "example": "The hotel is within walking distance."
+          }
+        },
+
+        {
+          "page": 8,
+          "type": "sentence",
+          "interactive": false,
+          "content": {
+            "pattern": "Is it within walking distance?",
+            "explanation": "Ask whether a place is close enough to walk to.",
+            "examples": [
+              "Is the station within walking distance?",
+              "Is the restaurant within walking distance?"
+            ]
+          }
+        },
+
+        {
+          "page": 9,
+          "type": "interactive_sentence",
+          "interactive": true,
+          "content": {
+            "instruction": "Arrange the words into a correct sentence."
+          },
+          "activity": {
+            "activityType": "word_order",
+            "words": ["it", "walking", "distance", "within", "is"],
+            "correctAnswer": "Is it within walking distance?"
+          }
+        },
+
+        {
+          "page": 10,
+          "type": "conversation",
+          "interactive": false,
+          "content": {
+            "scenario": "You are looking for the train station.",
+            "dialogue": [
+              {
+                "speaker": "You",
+                "text": "How do I get to the train station?"
+              },
+              {
+                "speaker": "Local",
+                "text": "Go straight ahead and turn left at the intersection."
+              }
+            ]
+          }
+        },
+
+        {
+          "page": 11,
+          "type": "interactive_conversation",
+          "interactive": true,
+          "content": {
+            "instruction": "Choose the best response."
+          },
+          "activity": {
+            "activityType": "multiple_choice",
+            "question": "You want to find the museum. What should you ask?",
+            "options": [
+              "How do I get to the museum?",
+              "I like the museum.",
+              "The museum is big.",
+              "Go to the museum."
+            ],
+            "correctAnswer": "How do I get to the museum?"
+          }
+        },
+
+        {
+          "page": 12,
+          "type": "summary",
+          "interactive": false,
+          "content": {
+            "keyVocabulary": [
+              "intersection",
+              "straight ahead",
+              "within walking distance"
+            ],
+            "keySentences": [
+              "How do I get to ___?",
+              "Is it within walking distance?"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "english-level-A1-lesson-2",
+      "title": "Reserve Hotel Room",
+      "description": "Learn how to reserve a hotel room in English. This lesson covers common phrases for making a reservation, asking about amenities, and checking in and out of a hotel.",
+      "vocab-content": [],
+      "sentences-content": []
+    },
+    {
+      "id": "english-level-A1-lesson-3",
+      "title": "Asking about Transportation",
+      "description": "Learn how to ask about transportation options in English. This lesson covers common phrases for requesting information about buses, trains, taxis, and other forms of transport.",
+      "vocab-content": [],
+      "sentences-content": []
+    },
+    {
+      "id": "english-level-A1-lesson-4",
+      "title": "Social Interactions",
+      "description": "Learn vocabulary related to social situations and interactions. This lesson includes words for common social scenarios, expressing opinions, and engaging in polite conversation.",
+      "vocab-content": [],
+      "sentences-content": []
+    },
+    {
+      "id": "english-level-A1-lesson-5",
+      "title": "Shopping and Dining",
+      "description": "Learn how to talk about shopping and dining experiences in English. This lesson covers common phrases for asking for help, making purchases, and ordering food.",
+      "vocab-content": [],
+      "sentences-content": []
+    }
+  ]
+}
