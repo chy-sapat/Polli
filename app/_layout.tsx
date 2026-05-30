@@ -1,9 +1,11 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import {Redirect, Stack} from "expo-router";
 import { StatusBar } from "react-native";
+import Toast from 'react-native-toast-message'
 import "./global.css";
 
-export default function RootLayout() {
+
+export default  function RootLayout() {
   const [fontsLoaded] = useFonts({
     "Nunito-Regular": require("../assets/fonts/Nunito-Regular.ttf"),
     "Nunito-Bold": require("../assets/fonts/Nunito-Bold.ttf"),
@@ -18,6 +20,7 @@ export default function RootLayout() {
     return null;
   }
 
+
   return (
     <>
       <StatusBar hidden />
@@ -26,6 +29,7 @@ export default function RootLayout() {
           headerShown: false,
         }}
       />
+      <Toast />
     </>
   );
 }

@@ -1,24 +1,100 @@
 import { Link, Redirect } from "expo-router";
 import { LogIn } from "lucide-react-native";
-import { Image, Pressable, Text, TextInput, View } from "react-native";
+import {ActivityIndicator, Image, Pressable, Text, TextInput, View} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { icons } from "@/lib/constants/icons";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { Eye, EyeOff } from "lucide-react-native";
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import Toast from "react-native-toast-message";
+import {useRouter} from 'expo-router'
+import * as SecureStore from "expo-secure-store";
 
 export default function LoginScreen() {
   const isSignedIn = useAuthStore((state) => state.isSignedIn);
   const signIn = useAuthStore((state) => state.signIn);
   const firstTimeUser = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [logging, setLogging] = useState(false);
 
+
+  const router = useRouter();
   if (isSignedIn) {
     return <Redirect href="/" />;
   }
-  const handleSignIn = () => {
-    signIn();
+
+  const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
+
+  const handleSignIn = async () => {
+
+        setLogging(true);
+
+      if (!baseUrl) {
+      Toast.show({
+        type: "error",
+        text1: "Missing API URL",
+        text2: "Set EXPO_PUBLIC_BASE_URL in .env and restart Metro.",
+      });
+      return;
+    }
+
+    if (!email.trim() || !password) {
+      Toast.show({
+        type: "error",
+        text1: "Missing credentials",
+        text2: "Please enter your email and password.",
+      });
+      return;
+    }
+
+
+
+
+    try {
+      const response = await axios.post(`${baseUrl}/login`,{
+          email,
+          password,
+      } ,{
+          validateStatus:()=>true
+      });
+      console.log("message hehe",response.data.message);
+
+      if (response.data?.success) {
+        Toast.show({
+          type: "success",
+          text1: "Logged in successfully!",
+        });
+        await SecureStore.setItemAsync("token", response.data.token);
+        signIn();
+        router.push("/(tabs)");
+        return;
+      }else{
+          Toast.show({
+              type: "error",
+              text1: "Login failed",
+              text2: response.data?.message ?? "Invalid credentials.",
+          });
+      }
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.log(error.response?.status);
+            console.log(error.response?.data);
+        } else {
+            console.log(error);
+        }
+    }
+    finally {
+
+            setLogging(false);
+
+
+        }
+
+
+
   };
 
   return (
@@ -43,6 +119,7 @@ export default function LoginScreen() {
             </Text>
             <TextInput
               autoCapitalize="none"
+              onChangeText={(text) => setEmail(text)}
               keyboardType="email-address"
               placeholder="you@example.com"
               placeholderTextColor="#94a3b8"
@@ -55,6 +132,7 @@ export default function LoginScreen() {
               Password
             </Text>
             <TextInput
+                onChangeText={(text) => setPassword(text)}
               placeholder="Password"
               placeholderTextColor="#94a3b8"
               secureTextEntry={!passwordVisible}
@@ -75,9 +153,14 @@ export default function LoginScreen() {
           <Pressable
             accessibilityRole="button"
             onPress={handleSignIn}
+            disabled={logging}
             className="mt-2 flex-row items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-4 active:opacity-50"
           >
+              {logging && (
+                  <ActivityIndicator size="small" color="#ffffff" className="mr-2" />
+              )}
             <LogIn color="#052e16" size={20} strokeWidth={2.5} />
+
             <Text className="font-nunito-bold text-base text-emerald-950">
               Sign in
             </Text>
